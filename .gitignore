@@ -1,0 +1,62 @@
+.env
+*.env.local
+*.env.*.local
+
+jupyter_config/
+
+# Jupyter temporary files
+.jupyter/
+.ipynb_checkpoints/
+.ipython/
+.local/
+
+# Trash
+.Trash-*/
+
+# Jupyter server files
+jpserver-*.json
+jpserver-*.html
+jupyter_cookie_secret
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data Directories (optional)
+data/
+
+# Data files (optional)
+*.csv
+*.parquet
+*.feather
+*.h5
+*.hdf5
+
+# Model files (large)
+*.pth
+*.pt
+*.bin
+*.safetensors
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Other
+.cache/

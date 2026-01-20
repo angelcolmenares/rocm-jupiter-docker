@@ -1,0 +1,51 @@
+services:
+  rocm-jupyter:
+    image: rocm-pytorch-jupyter:latest
+    container_name: rocm-jupyter
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NB_UID: ${UID:-1000}
+        NB_GID: ${GID:-1000}
+        NB_USER: ${USERNAME:-jovyan}
+    restart: unless-stopped
+    ports:
+      - "${JUPYTER_PORT:-8888}:8888"
+      - "6006:6006"  # TensorBoard port
+      - "8265:8265"    # Ray dashboard (optional)
+    volumes:
+      # Main workspace with everything
+      - ./workspace:/workspace:rw
+      # Jupyter configuration
+      - ./jupyter_config:/root/.jupyter
+      # ROCm devices
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - video
+      - render
+    privileged: true
+    shm_size: 16gb
+    env_file:
+      - .env  # Load environment variables from .env file
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - NB_USER= ${USERNAME:-jovyan}
+      - NB_UID=${UID:-1000}
+      - NB_GID=${GID:-1000}
+      - HOME=/home/${USERNAME:-jovyan}
+    command: >
+      jupyter lab
+      --ip=0.0.0.0
+      --port=${JUPYTER_PORT:-8888}
+      --no-browser
+      --allow-root
+      --NotebookApp.token=${JUPYTER_TOKEN}
+      --NotebookApp.notebook_dir=/workspace
+      --ServerApp.allow_origin='*'
+      --ServerApp.disable_check_xsrf=True
