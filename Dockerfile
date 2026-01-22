@@ -73,6 +73,9 @@ RUN pip install --no-cache-dir \
     # Optional
     xformers 
 
+RUN pip install -Uqq fastbook
+RUN pip install -Uqq fastai
+RUN pip install -U ddgs
 
 # Create workspace and set permissions
 RUN mkdir -p /workspace && \

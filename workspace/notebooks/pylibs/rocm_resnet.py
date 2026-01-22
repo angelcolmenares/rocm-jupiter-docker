@@ -1,3 +1,5 @@
+# workspace/notebooks/pylibs/rocm_resnet.py
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -8,7 +10,6 @@ class ROCmBasicBlock(nn.Module):
     
     def __init__(self, in_channels, out_channels, stride=1, groups=8):
         super().__init__()
-        # Use GroupNorm instead of BatchNorm
         self.conv1 = nn.Conv2d(in_channels, out_channels, 3, stride, 1, bias=False)
         self.gn1 = nn.GroupNorm(groups, out_channels)
         self.conv2 = nn.Conv2d(out_channels, out_channels, 3, 1, 1, bias=False)
@@ -75,8 +76,48 @@ class ROCmResNet(nn.Module):
         
         return x
 
-def rocm_resnet18(num_classes=10):
+# FastAI compatible functions
+def rocm_resnet18(pretrained=False, num_classes=1000, **kwargs):
+    """
+    Constructs a ROCm-compatible ResNet-18 model.
+    
+    Args:
+        pretrained: If True, returns a model with pretrained weights (not implemented yet)
+        num_classes: Number of output classes
+        **kwargs: Additional arguments (ignored)
+    """
+    model = ROCmResNet(ROCmBasicBlock, [2, 2, 2, 2], num_classes)
+    
+    # Note: Currently no pretrained weights available for ROCm models
+    # You could add weight loading logic here if you have pretrained weights
+    if pretrained:
+        print("Warning: Pretrained weights not available for ROCm ResNet18")
+        print("Training from scratch...")
+    
+    return model
+
+def rocm_resnet50(pretrained=False, num_classes=1000, **kwargs):
+    """
+    Constructs a ROCm-compatible ResNet-50 model.
+    
+    Args:
+        pretrained: If True, returns a model with pretrained weights (not implemented yet)
+        num_classes: Number of output classes
+        **kwargs: Additional arguments (ignored)
+    """
+    model = ROCmResNet(ROCmBasicBlock, [3, 4, 6, 3], num_classes)
+    
+    if pretrained:
+        print("Warning: Pretrained weights not available for ROCm ResNet50")
+        print("Training from scratch...")
+    
+    return model
+
+# Alternative: Functions without pretrained parameter (for backward compatibility)
+def rocm_resnet18_basic(num_classes=10):
+    """Basic version without pretrained parameter"""
     return ROCmResNet(ROCmBasicBlock, [2, 2, 2, 2], num_classes)
 
-def rocm_resnet50(num_classes=10):
+def rocm_resnet50_basic(num_classes=10):
+    """Basic version without pretrained parameter"""
     return ROCmResNet(ROCmBasicBlock, [3, 4, 6, 3], num_classes)
