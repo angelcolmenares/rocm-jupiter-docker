@@ -70,7 +70,8 @@ JUPYTER_PORT=8888
 UID=your_user_id
 GID=1000
 USERNAME=your_user_name
-#####HSA_OVERRIDE_GFX_VERSION: "10.3.0"  # Try this for stability # DO NOT Try: it does quite the opposite
+# Try this for stability
+HSA_OVERRIDE_GFX_VERSION:11.0.0
 # PyTorch memory optimization
 PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512,expandable_segments:True,garbage_collection_threshold:0.6
 PYTORCH_HIP_ALLOC_CONF=max_split_size_mb:512,expandable_segments:True,garbage_collection_threshold:0.6
