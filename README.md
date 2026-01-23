@@ -73,8 +73,10 @@ USERNAME=your_user_name
 # Try this for stability
 HSA_OVERRIDE_GFX_VERSION:11.0.0
 # PyTorch memory optimization
-PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512,expandable_segments:True,garbage_collection_threshold:0.6
-PYTORCH_HIP_ALLOC_CONF=max_split_size_mb:512,expandable_segments:True,garbage_collection_threshold:0.6
+# expandable_segments:True
+PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512,garbage_collection_threshold:0.6
+# expandable_segments:True
+PYTORCH_HIP_ALLOC_CONF=max_split_size_mb:512,garbage_collection_threshold:0.6
 # Enable TF32 for faster math (if supported)
 NVIDIA_TF32_OVERRIDE=1
 # ROCm optimization
