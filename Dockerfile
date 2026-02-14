@@ -73,8 +73,8 @@ RUN pip install --no-cache-dir \
     # Optional
     xformers 
 
-RUN pip install -Uqq fastbook
-RUN pip install -Uqq fastai
+RUN pip install --no-cache-dir "fastprogress==1.0.3"
+RUN pip install -Uqq fastai fastbook fastcore
 RUN pip install -U ddgs
 
 # Create workspace and set permissions
