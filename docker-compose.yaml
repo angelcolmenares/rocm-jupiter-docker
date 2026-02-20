@@ -1,7 +1,7 @@
 services:
   rocm-jupyter:
-    image: rocm7.1.1-pytorch-jupyter:latest
-    container_name: rocm7.1.1-pytorch-jupyter
+    image: rocm7.2-pytorch-jupyter:latest
+    container_name: rocm7.2-pytorch-jupyter
     build:
       context: .
       dockerfile: Dockerfile
