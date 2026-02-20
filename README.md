@@ -117,10 +117,10 @@ docker compose logs -f
 docker compose up --build -d
 
 ### Enter container shell
-docker exec -it rocm-jupyter bash
+docker exec -it rocm7.2-pytorch-jupyter bash
 
 ### Check GPU status
-docker exec rocm-jupyter rocm-smi
+docker exec rocm7.2-pytorch-jupyter rocm-smi
 
 ### Access:
 - Launch docker container in your terminal:  docker compose up -d
